@@ -4,7 +4,8 @@
  */
 package entity;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,13 +18,14 @@ public class Customers {
     private String name;
     private String phone;
     private String address;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private BigDecimal balance;
+    private Date createdAt;
+    private Date updatedAt;
     private String updatedBy;
     private String createdBy;
     private boolean isDelete;
     private String deletedBy;
-    private LocalDateTime deletedAt;
+    private Date deletedAt;
     private String status;
     private List<Invoice> invoices;
     private List<Debt> debts;
@@ -31,7 +33,7 @@ public class Customers {
     public Customers() {
     }
 
-    public Customers(int id, String type, String name, String phone, String address, LocalDateTime createdAt, LocalDateTime updatedAt, String updatedBy, String createdBy, boolean isDelete, String deletedBy, LocalDateTime deletedAt, String status, List<Invoice> invoices, List<Debt> debts) {
+    public Customers(int id, String type, String name, String phone, String address, Date createdAt, Date updatedAt, String updatedBy, String createdBy, boolean isDelete, String deletedBy, Date deletedAt, String status) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -45,9 +47,28 @@ public class Customers {
         this.deletedBy = deletedBy;
         this.deletedAt = deletedAt;
         this.status = status;
+    }
+
+    public Customers(int id, String type, String name, String phone, String address, BigDecimal balance, Date createdAt, Date updatedAt, String updatedBy, String createdBy, boolean isDelete, String deletedBy, Date deletedAt, String status, List<Invoice> invoices, List<Debt> debts) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.balance = balance;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
+        this.createdBy = createdBy;
+        this.isDelete = isDelete;
+        this.deletedBy = deletedBy;
+        this.deletedAt = deletedAt;
+        this.status = status;
         this.invoices = invoices;
         this.debts = debts;
     }
+    
+    
 
     public int getId() {
         return id;
@@ -89,19 +110,28 @@ public class Customers {
         this.address = address;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+    
+
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -137,11 +167,11 @@ public class Customers {
         this.deletedBy = deletedBy;
     }
 
-    public LocalDateTime getDeletedAt() {
+    public Date getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    public void setDeletedAt(Date deletedAt) {
         this.deletedAt = deletedAt;
     }
 
@@ -168,6 +198,13 @@ public class Customers {
     public void setDebts(List<Debt> debts) {
         this.debts = debts;
     }
+
+    @Override
+    public String toString() {
+        return "Customers{" + "id=" + id + ", type=" + type + ", name=" + name + ", phone=" + phone + ", address=" + address + ", balance=" + balance + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + ", createdBy=" + createdBy + ", isDelete=" + isDelete + ", deletedBy=" + deletedBy + ", deletedAt=" + deletedAt + ", status=" + status + ", invoices=" + invoices + ", debts=" + debts + '}';
+    }
+
+
     
     
 }

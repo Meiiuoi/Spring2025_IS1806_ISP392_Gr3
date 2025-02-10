@@ -42,22 +42,14 @@
                                     <input type="number" step="0.01" class="form-control" name="price" required>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label>Wholesale Price</label>
-                                    <input type="number" step="0.01" class="form-control" name="wholesalePrice" required>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Retail Price</label>
-                                    <input type="number" step="0.01" class="form-control" name="retailPrice" required>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Weight (kg)</label>
-                                    <input type="number" class="form-control" name="weight" required>
+                                    <label>Quantity (kg)</label>
+                                    <input type="number" class="form-control" name="quantity" required>
                                 </div>
                             </div>
 
                             <div class="form-row">
-                                <label>Location</label>
-                                <input type="text" class="form-control" name="location" required>
+                                <label>Zone_id</label>
+                                <input type="text" class="form-control" name="zone_id" required>
                             </div>
 
                             <div class="form-group">
@@ -83,6 +75,6 @@
                 </div>
             </div>
         </div>
-
+         
     </body>
 </html>

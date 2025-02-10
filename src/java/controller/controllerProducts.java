@@ -59,7 +59,7 @@ public class controllerProducts extends HttpServlet {
             if (command == null || command.isEmpty()) {
                 command = (String) session.getAttribute("command");
                 if (command == null || command.isEmpty()) {
-                    command = "product_id";
+                    command = "id";
                 }
             } else {
                 session.setAttribute("command", command);
@@ -83,14 +83,14 @@ public class controllerProducts extends HttpServlet {
             if (notification != null && !notification.isEmpty()) {
                 request.setAttribute("Notification", notification);
             }
-            request.getRequestDispatcher("webapp/products.jsp").forward(request, response);
+            request.getRequestDispatcher("webapp/products/products.jsp").forward(request, response);
         }
         if (service.equals("searchProducts")) {
             String name = request.getParameter("browser");
             try {
                 List<Products> list = products.searchProducts(name);
                 request.setAttribute("list", list);
-                request.getRequestDispatcher("webapp/products.jsp").forward(request, response);
+                request.getRequestDispatcher("webapp/products/products.jsp").forward(request, response);
             } catch (NumberFormatException e) {
             }
         }
@@ -100,8 +100,8 @@ public class controllerProducts extends HttpServlet {
             try {
                 id = Integer.parseInt(id_raw);
                 List<Products> product = products.getProductById(id);
-                request.setAttribute("product", product);
-                request.getRequestDispatcher("webapp/detailProduct.jsp").forward(request, response);
+                request.setAttribute("list", product);
+                request.getRequestDispatcher("webapp/products/detailProduct.jsp").forward(request, response);
             } catch (NumberFormatException e) {
             }
         }
@@ -109,123 +109,83 @@ public class controllerProducts extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("product_id"));
             List<Products> list = products.getProductById(id);
             request.setAttribute("product", list);
-            request.getRequestDispatcher("webapp/editProduct.jsp").forward(request, response);
+            request.getRequestDispatcher("webapp/products/editProduct.jsp").forward(request, response);
 
         }
-        if (service.equals("editProduct")) {
-            int productId = Integer.parseInt(request.getParameter("product_id"));
-            String name = request.getParameter("name");
-            Part file = request.getPart("image");
-            String currentImage = request.getParameter("current_image");
-            String imageFileName = null;
+ if (service.equals("editProduct")) {
+    try {
+        int productId = Integer.parseInt(request.getParameter("product_id"));
+        String name = request.getParameter("name");
+        Part file = request.getPart("image");
+        String currentImage = request.getParameter("current_image");
+        String imageFileName = (currentImage != null) ? currentImage : "";
 
-            if (file != null && file.getSize() > 0) {
-                String fileType = file.getContentType();
-                if (!ALLOWED_MIME_TYPES.contains(fileType)) {
-                    List<Products> list = products.getProductById(productId);
-                    request.setAttribute("product", list);
-                    request.setAttribute("Notification", "Invalid file type! Only JPG, PNG, and GIF are allowed.");
-                    request.getRequestDispatcher("webapp/editProduct.jsp").forward(request, response);
-                    return;
+        if (file != null && file.getSize() > 0) {
+            String fileType = file.getContentType();
+            if (!ALLOWED_MIME_TYPES.contains(fileType)) {
+                session.setAttribute("Notification", "Invalid file type! Only JPG, PNG, and GIF are allowed.");
+                response.sendRedirect("Products");
+                return;
+            }
+
+            imageFileName = getSubmittedFileName(file);
+            String uploadDirectory = getServletContext().getRealPath("/") + "images";
+            File uploadDir = new File(uploadDirectory);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String uploadPath = uploadDirectory + File.separator + imageFileName;
+            try (FileOutputStream fos = new FileOutputStream(uploadPath); InputStream is = file.getInputStream()) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, bytesRead);
                 }
-
-                imageFileName = getSubmittedFileName(file);
-
-                String uploadDirectory = getServletContext().getRealPath("/") + "images";
-                File uploadDir = new File(uploadDirectory);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
-                }
-
-                String uploadPath = uploadDirectory + File.separator + imageFileName;
-                try (FileOutputStream fos = new FileOutputStream(uploadPath); InputStream is = file.getInputStream()) {
-
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = is.read(buffer)) != -1) {
-                        fos.write(buffer, 0, bytesRead);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                imageFileName = currentImage;
             }
+        }
 
-            String priceRaw = request.getParameter("price");
-            BigDecimal price = new BigDecimal(priceRaw);
-            price = new BigDecimal(priceRaw);
-            if (price.compareTo(BigDecimal.ZERO) <= 0) {
-                List<Products> list = products.getProductById(productId);
-                request.setAttribute("product", list);
-                request.setAttribute("Notification1", "Price must be greater than 0.");
-                request.getRequestDispatcher("webapp/editProduct.jsp").forward(request, response);
-                return;
-            }
-            String wholesalePriceRaw = request.getParameter("wholesale_price");
-            BigDecimal wholesalePrice = new BigDecimal(wholesalePriceRaw);
-            if (wholesalePrice.compareTo(BigDecimal.ZERO) <= 0) {
-                List<Products> list = products.getProductById(productId);
-                request.setAttribute("product", list);
-                request.setAttribute("Notification2", "Wholesale Price must be greater than 0.");
-                request.getRequestDispatcher("webapp/editProduct.jsp").forward(request, response);
-                return;
-            }
-            String retailPriceRaw = request.getParameter("retail_price");
-            BigDecimal retailPrice = new BigDecimal(retailPriceRaw);
-            if (retailPrice.compareTo(BigDecimal.ZERO) <= 0) {
-                List<Products> list = products.getProductById(productId);
-                request.setAttribute("product", list);
-                request.setAttribute("Notification3", "Retail Price must be greater than 0.");
-                request.getRequestDispatcher("webapp/editProduct.jsp").forward(request, response);
-                return;
-            }
-            int weight = Integer.parseInt(request.getParameter("weight"));
-            if (weight <= 0) {
-                List<Products> list = products.getProductById(productId);
-                request.setAttribute("product", list);
-                request.setAttribute("Notification4", "Weight must be greater than 0.");
-                request.getRequestDispatcher("webapp/editProduct.jsp").forward(request, response);
-                return;
-            }
-            String location = request.getParameter("location");
-            String description = request.getParameter("description");
-            String status = request.getParameter("status");
-
-            Date updatedAt = new java.sql.Timestamp(System.currentTimeMillis());
-
-            boolean isDelete = false;
-            Date deletedAt = null;
-            Date createdAt = new java.sql.Date(System.currentTimeMillis());
-
-            Products product = new Products(productId, name, imageFileName, price, wholesalePrice, retailPrice, weight, location, description, createdAt, updatedAt, isDelete, deletedAt, status);
-            products.editProduct(product);
+        BigDecimal price = new BigDecimal(request.getParameter("price"));
+        if (price.compareTo(BigDecimal.ZERO) <= 0) {
+            session.setAttribute("Notification", "Price must be greater than 0.");
             response.sendRedirect("Products");
+            return;
         }
-        if (service.equals("deleteProduct")) {
-            String[] selectedProducts = request.getParameterValues("id");
-
-            if (selectedProducts != null && selectedProducts.length > 0) {
-                try {
-                    for (String id : selectedProducts) {
-                        int product_id = Integer.parseInt(id);
-                        // Xóa sản phẩm
-                        products.deleteProduct(product_id);
-                    }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-
+        
+        int zone_id = Integer.parseInt(request.getParameter("zone_id"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        if (quantity <= 0) {
+            session.setAttribute("Notification", "Weight must be greater than 0.");
             response.sendRedirect("Products");
+            return;
         }
+        
+        String location = request.getParameter("location");
+        String description = request.getParameter("description");
+        String status = request.getParameter("status");
+
+        Date updatedAt = new java.sql.Timestamp(System.currentTimeMillis());
+        boolean isDelete = false;
+        Date deletedAt = null;
+        Date createdAt = new java.sql.Date(System.currentTimeMillis());
+
+        Products product = new Products(productId, name, imageFileName, price, quantity, zone_id, description, createdAt, updatedAt, isDelete, deletedAt, status);
+        products.editProduct(product);
+        response.sendRedirect("Products");
+    } catch (NumberFormatException e) {
+        session.setAttribute("Notification", "Invalid number format.");
+        response.sendRedirect("Products");
+    } catch (NullPointerException e) {
+        session.setAttribute("Notification", "Missing required parameters.");
+        response.sendRedirect("Products");
+    }
+} 
 
         if (service.equals("addProduct")) {
 
             String name = request.getParameter("name");
 
             Part file = request.getPart("image");
-            String currentImage = request.getParameter("current_image");
 
             String imageFileName = null;
 
@@ -255,9 +215,7 @@ public class controllerProducts extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                imageFileName = currentImage;
-            }
+            } 
 
             String priceRaw = request.getParameter("price");
             BigDecimal price = new BigDecimal(priceRaw);
@@ -267,36 +225,40 @@ public class controllerProducts extends HttpServlet {
                 request.getRequestDispatcher("Products?service=products").forward(request, response);
                 return;
             }
-            String wholesalePriceRaw = request.getParameter("wholesalePrice");
-            BigDecimal wholesalePrice = new BigDecimal(wholesalePriceRaw);
-            if (wholesalePrice.compareTo(BigDecimal.ZERO) <= 0) {
-                request.setAttribute("Notification", "Wholesale Price must be greater than 0.");
-                request.getRequestDispatcher("Products?service=products").forward(request, response);
-                return;
-            }
-            String retailPriceRaw = request.getParameter("retailPrice");
-            BigDecimal retailPrice = new BigDecimal(retailPriceRaw);
-            if (retailPrice.compareTo(BigDecimal.ZERO) <= 0) {
-                request.setAttribute("Notification", "Retail Price must be greater than 0.");
-                request.getRequestDispatcher("Products?service=products").forward(request, response);
-                return;
-            }
+           
 
-            int weight = Integer.parseInt(request.getParameter("weight"));
-            if (weight <= 0) {
-                request.setAttribute("Notification", "Weight must be greater than 0.");
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            if (quantity <= 0) {
+                request.setAttribute("Notification", "Quantity must be greater than 0.");
                 request.getRequestDispatcher("Products?service=products").forward(request, response);
                 return;
             }
-            String location = request.getParameter("location");
+            int zone_id = Integer.parseInt(request.getParameter("zone_id"));
             String description = request.getParameter("description");
             String status = request.getParameter("status");
             String isDeleteRaw = request.getParameter("isDelete");
             boolean isDelete = Boolean.parseBoolean(isDeleteRaw);
 
-            Products product = new Products(0, name, imageFileName, price, wholesalePrice, retailPrice, weight, location, description, new Date(), new Date(), isDelete, null, status);
+            Products product = new Products(0, name, imageFileName, price,quantity, zone_id, description, new Date(), new Date(), isDelete, null, status);
             products.insertProduct(product);
             request.getRequestDispatcher("Products?service=products").forward(request, response);
+        }
+         if (service.equals("deleteProduct")) {
+            String[] selectedProducts = request.getParameterValues("id");
+
+            if (selectedProducts != null && selectedProducts.length > 0) {
+                try {
+                    for (String id : selectedProducts) {
+                        int product_id = Integer.parseInt(id);
+                        // Xóa sản phẩm
+                        products.deleteProduct(product_id);
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            response.sendRedirect("Products");
         }
     }
 

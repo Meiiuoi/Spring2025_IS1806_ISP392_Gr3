@@ -66,8 +66,6 @@
                             <th>Name</th>
                             <th>Image</th>
                             <th>Price</th>
-                            <th>Wholesale Price</th>
-                            <th>Retail Price</th>
                             <th>Weight</th>
                             <th>Location</th>
                             <th>Description</th>
@@ -77,7 +75,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
                         <c:forEach var="product" items="${list}">
                             <tr>
                                 <td class="checkbox-column" style="display: none;">
@@ -85,27 +83,39 @@
                                 </td>
                                 <td>${product.getProductId()}</td>
                                 <td class="bold-row">${product.getName()}</td>
-                                <td><img src="images/${product.getImage()}" style="width: 100px; height: 100px; object-fit: cover;" alt="Product Image" /></td>
+                                <td>
+                                    <img src="images/${product.getImage()}" style="width: 100px; height: 100px; object-fit: cover;" alt="Product Image" />
+                                </td>
                                 <td>${product.getPrice()}</td>
-                                <td>${product.getWholesalePrice()}</td>
-                                <td>${product.getRetailPrice()}</td>
-                                <td>${product.getWeight()} Kg</td>
-                                <td>${product.getLocation()}</td>
+                                <td>${product.getQuantity()} Kg</td>
+                                <td>${product.getZone_id()}</td>
                                 <td>${product.getDescription()}</td>
                                 <td>${product.getCreatedAt()}</td>
                                 <td>${product.getUpdatedAt()}</td>
-                                <td ><h5><div class="badge rounded-pill bg-secondary" style="color: white">${product.getStatus()}</div></h5></td>
+                                <td>
+                                    <h5>
+                                        <div class="badge rounded-pill bg-secondary" style="color: white">${product.getStatus()}</div>
+                                    </h5>
+                                </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-outline-info" href="Products?service=getProductById&product_id=${product.getProductId()}"><i class="fas fa-info-circle"></i></a>
-                                        <a class="btn btn-outline-warning" href="Products?service=detailProduct&product_id=${product.getProductId()}"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-outline-danger" href="Products?service=deleteProduct&id=${product.getProductId()}" onclick="return doDelete(${product.getProductId()})"><i class="fa-solid fa-trash"></i></a>
+                                        <a class="btn btn-outline-info" href="Products?service=getProductById&product_id=${product.getProductId()}">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#editProductModal${product.getProductId()}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <a class="btn btn-outline-danger" href="Products?service=deleteProduct&id=${product.getProductId()}" onclick="return doDelete(${product.getProductId()})">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
+
                         </c:forEach>
                     </tbody>
                 </table>
+
 
             </form>
 

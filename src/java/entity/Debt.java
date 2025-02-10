@@ -12,12 +12,14 @@ import java.time.LocalDateTime;
  * @author bsd12418
  */
 public class Debt {
+
     private int id;
     private String type;
     private BigDecimal amount;
-    private PaymentHistory paymentHistory;
-    private ImportExportProduct importExportProduct;
-    private Customers customer;
+    private int customer_id;
+    private String image;
+    private String description;
+    private String customerName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String createdBy;
@@ -26,13 +28,25 @@ public class Debt {
     public Debt() {
     }
 
-    public Debt(int id, String type, BigDecimal amount, PaymentHistory paymentHistory, ImportExportProduct importExportProduct, Customers customer, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String status) {
+    public Debt(int id, String type, BigDecimal amount, String image, String description, String customerName, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String status) {
         this.id = id;
         this.type = type;
         this.amount = amount;
-        this.paymentHistory = paymentHistory;
-        this.importExportProduct = importExportProduct;
-        this.customer = customer;
+        this.image = image;
+        this.description = description;
+        this.customerName = customerName;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.createdBy = createdBy;
+        this.status = status;
+    }
+
+    public Debt(String customerName, String type, BigDecimal amount, String image, String description, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String status) {
+        this.type = type;
+        this.amount = amount;
+        this.image = image;
+        this.description = description;
+        this.customerName = customerName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.createdBy = createdBy;
@@ -63,28 +77,36 @@ public class Debt {
         this.amount = amount;
     }
 
-    public PaymentHistory getPaymentHistory() {
-        return paymentHistory;
+    public int getCustomer_id() {
+        return customer_id;
     }
 
-    public void setPaymentHistory(PaymentHistory paymentHistory) {
-        this.paymentHistory = paymentHistory;
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 
-    public ImportExportProduct getImportExportProduct() {
-        return importExportProduct;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setImportExportProduct(ImportExportProduct importExportProduct) {
-        this.importExportProduct = importExportProduct;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public Customers getCustomer() {
-        return customer;
+    public String getImage() {
+        return image;
     }
 
-    public void setCustomer(Customers customer) {
-        this.customer = customer;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -118,5 +140,10 @@ public class Debt {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Debt{" + "id=" + id + ", type=" + type + ", amount=" + amount + ", customer_id=" + customer_id + ", image=" + image + ", description=" + description + ", customerName=" + customerName + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy + ", status=" + status + '}';
+    }
+
 }

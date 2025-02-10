@@ -8,31 +8,38 @@
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Debt.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/css/style.css</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/debts/addDebt.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/controller/controllerProducts.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Role.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Invoice.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/NumberOfBags.java</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/META-INF/context.xml</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/InvoiceDetails.java</file>
-            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/addProduct.jsp</file>
-            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/listProducts.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Staffs.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/css/script.js</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/products/products.jsp</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/products/detailProduct.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/PaymentHistory.java</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/DAO/customerDAO.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/DAO/productsDAO.java</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/products/editProduct.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Products.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/css/bootstrap.css</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/debts/listDebts.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/index.html</file>
-            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/products.jsp</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/products/addProduct.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Zone.java</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/controller/controllerDebts.java</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/products/listProducts.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/ProductZone.java</file>
-            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/editProduct.jsp</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/ImportExportDetails.java</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/DAO/debtDAO.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/DAO/DBcontext.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/ImportExportProduct.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/src/java/entity/Customers.java</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/css/bootstrap.min.css</file>
             <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/css/bootstrap.min.css.map</file>
-            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/detailProduct.jsp</file>
+            <file>file:/C:/Users/phamh/OneDrive/Documents/NetBeansProjects/ISP392/web/webapp/debts/debts.jsp</file>
         </group>
     </open-files>
 </project-private>

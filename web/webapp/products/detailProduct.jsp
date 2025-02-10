@@ -8,13 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-        <script type="text/javascript" src="<%= request.getContextPath() %>/css/script.js"></script>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css?v=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -57,7 +54,7 @@
         <div class="container">
             <div class="product-container">
                 <h2>Product Details</h2>
-                <c:forEach var="product" items="${product}">
+                <c:forEach var="product" items="${list}">
 
                     <div class="product-detail">
                         <label>Product ID:</label>
@@ -100,11 +97,9 @@
                         <span>${product.getStatus()}</span>
                     </div>
                     <div style="display: flex; gap: 450px; align-items: center;">
-                        <form action="Products" method="POST">
-                            <input type="hidden" name="service" value="detailProduct" />
-                            <input type="hidden" name="product_id" value="${product.productId}" />
-                            <input type="submit" class="btn btn-outline-success" value="Edit product" />
-                        </form>
+                        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#editProductModal${product.getProductId()}">
+                            Edit product
+                        </button> 
                         <form action="Products" method="POST" onsubmit="return doDelete(${product.productId})">
                             <input type="hidden" name="service" value="deleteProduct" />
                             <input type="hidden" name="id" value="${product.productId}" />
@@ -117,6 +112,10 @@
 
             </div>
         </div>
-
+         <c:import url="editProduct.jsp" />
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/css/script.js"></script>
+        
     </body>
 </html>

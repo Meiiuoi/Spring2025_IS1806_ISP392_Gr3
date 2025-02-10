@@ -11,9 +11,7 @@
         <!--   ***** Link To Custom Stylesheet *****   -->
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css?v=1.0" />
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Dashboard</title>
@@ -32,12 +30,12 @@
                     <div class="logo mr-5" >
                         <img src="images/logo.png" style="width: 120px; height:70px" />
                     </div>
-                    
+
                 </div>
                 <form action="Products" method="POST" class="custom-search-form">
                     <input type="hidden" name="service" value="searchProducts">
                     <div class="search-box">
-                        <input type="text" class="input-box" list="browsers" name="browser" id="browser" placeholder="Search for a product..." autocomplete="off">
+                        <input type="text" id="myInput" class="input-box" list="browsers" name="browser" id="browser" placeholder="Search for a product..." autocomplete="off">
                         <datalist id="browsers">
                             <c:forEach var="product" items="${list}">
                                 <option value="${product.getName()}">${product.getName()}</option>
@@ -48,7 +46,6 @@
                         </button>
                     </div>
                 </form>
-
                 <div class="top-bar-right">
                     <div class="mode-switch">
                         <i class="fa-solid fa-moon"></i>
@@ -117,7 +114,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="Debts?service=debts">
                             <span class="nav-icon">
                                 <i class="fa-solid fa-money-bill"></i>
                             </span>
@@ -153,7 +150,6 @@
                         <span class="text">Logout</span>
                     </div>
                 </div>
-                <!--   === Side Bar Footer Ends ===   -->
             </aside>
 
             <div class="contents">
@@ -164,13 +160,24 @@
                             <strong>${requestScope.Notification}</strong> 
                         </div>
                     </c:if>
+                    <c:if test="${not empty sessionScope.Notification}">
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>${sessionScope.Notification}</strong> 
+                        </div>
+                        <c:remove var="Notification" scope="session"/>
+                    </c:if>
+
                     <c:import url="listProducts.jsp" />
+
                 </div>
             </div>
         </div>   
-                    <c:import url="addProduct.jsp" />
-
+        <c:import url="addProduct.jsp" />
+        <c:import url="editProduct.jsp" />
         <!--   === java script ===   -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/css/script.js"></script>
 
     </body>
