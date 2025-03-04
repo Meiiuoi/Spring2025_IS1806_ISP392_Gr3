@@ -7,7 +7,6 @@ package controller.customer;
 import dal.customerDAO;
 import dal.debtDAO;
 import entity.Customers;
-import entity.DebtNote;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
