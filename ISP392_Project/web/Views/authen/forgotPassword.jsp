@@ -66,7 +66,7 @@
             </c:if>
 
             <form action="forgotpw" method="post">
-                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="email" name="email" placeholder="Enter your email" required value="${param.email}">
                 <button type="submit">Send Mail</button>
             </form>
             <div style="text-align: right;">

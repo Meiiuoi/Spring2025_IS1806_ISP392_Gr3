@@ -77,7 +77,7 @@ public class ChangePasswordController extends HttpServlet {
         }
 
         // check if the current password is correct
-        Users user = Users.builder().email("phanngocmai2411@gmail.com").build();
+        Users user = Users.builder().email(email).build();
         Users user1 = accountDAO.findByEmail(user);
         if (user1 == null || !user1.getPassword().equals(hashedCurrentPassword) ) {
             request.setAttribute("error", "Current password is incorrect");
