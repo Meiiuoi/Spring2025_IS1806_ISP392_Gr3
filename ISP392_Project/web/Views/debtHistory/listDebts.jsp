@@ -16,20 +16,18 @@
     <body>
         <h1>Debts</h1>
         <div class="search-box">
-            <input type="text" id="myInput" class="input-box" list="browsers" name="browser" id="browser" placeholder="Search for a product..."
-                   autocomplete="off"
-                   />
-            <datalist id="browsers">
-                <c:forEach var="debt" items="${list}">
-                    <option value="${debt.getDebtorName()}">
-                        ${debt.getDebtorName()}
-                    </option>
-                </c:forEach>
-            </datalist>
+            <input type="text" id="myInput" class="input-box"  name="browser"  placeholder="Search for a name..."
+                   autocomplete="off"/>
+
+            <button type="button" class="clear-btn"
+                            onclick="window.location.href = '${pageContext.request.contextPath}/Debts'">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
             <button type="submit" class="search-btn">
                 <i class="fa-solid fa-search"></i>
             </button>
         </div>
+
         <div class="action-bar d-flex align-items-center">
             <button type="button" class="btn btn-outline-primary mr-lg-auto" data-toggle="modal" data-target="#addDebtModal">
                 Add Debt
@@ -48,12 +46,9 @@
         <br>
         <div class="table-container">
             <form action="Debts" method="POST">
-                <table class="table table-striped table-hover table-bordered" style="color: var(--heading-clr);">
+                <table class="table table-striped table-hover table-bordered" id="myTable" style="color: var(--heading-clr);">
                     <thead>
                         <tr>
-                            <th class="checkbox-column" style="display: none;" >
-                                <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)" />
-                            </th>
                             <th style="width: 50px;" class="resizable" onclick="sortTable(0)">ID</th>
                             <th style="width: 150px;" class="resizable" onclick="sortTable(1)">Total amount</th>
                             <th style="width: 150px;" class="resizable" onclick="sortTable(2)">Description</th>
@@ -70,9 +65,6 @@
                     <tbody id="myTable">
                         <c:forEach var="debt" items="${list}">
                             <tr>
-                                <td class="checkbox-column" style="display: none;">
-                                    <input type="checkbox" name="selectedProducts" value="${debt.getId()}" class="product-checkbox" />
-                                </td>
                                 <td>${debt.getId()}</td>
                                 <td>
                                     <c:if test="${not empty totalAmountMap[debt.id]}">

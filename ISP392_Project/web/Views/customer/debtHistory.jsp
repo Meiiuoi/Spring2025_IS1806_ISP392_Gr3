@@ -151,7 +151,6 @@
             <div id="caption"></div>
         </div>
         <script>
-
             function myFunction(customerId) {
                 var input, filter, table, tr, td, i, txtValue;
                 input = document.getElementById("myInput");
@@ -177,6 +176,12 @@
                     }
                 }
             }
+            $("#myModal").on("show.bs.modal", function (e) {
+                if ($(this).hasClass("already-open"))
+                    return;
+                $(this).addClass("already-open");
+            });
+
             $(document).ready(function () {
                 $(".openDebtModal").on("click", function () {
                     try {
@@ -218,29 +223,40 @@
             });
 
 
-// Get the modal
-            var modal = document.getElementById("myModal");
+            document.addEventListener("DOMContentLoaded", function () {
+                var modal = document.getElementById("myModal");
+                var modalImg = document.getElementById("img01");
+                var captionText = document.getElementById("caption");
 
-// Get all images with class "myImg"
-            var imgs = document.getElementsByClassName("myImg");
-            var modalImg = document.getElementById("img01");
-            var captionText = document.getElementById("caption");
+                // Kiểm tra nếu modal có tồn tại
+                if (!modal || !modalImg || !captionText) {
+                    console.error("Modal elements not found!");
+                    return;
+                }
 
-// Loop through all images and add event listener to each
-            document.querySelectorAll(".myImg").forEach(img => {
-                img.addEventListener("click", function () {
-                    modal.style.display = "block";
-                    modalImg.src = this.src;
-                    captionText.innerHTML = this.alt;
+                // Lặp qua tất cả ảnh có class "myImg"
+                document.querySelectorAll(".myImg").forEach(img => {
+                    img.addEventListener("click", function () {
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                        captionText.innerHTML = this.alt;
+                    });
+                });
+
+                // Đóng modal khi bấm vào nền đen
+                modal.addEventListener("click", function () {
+                    modal.style.display = "none";
                 });
             });
 
 
-// Get the <span> element that closes the modal
+
 
         </script>
+        <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
         <script type="text/javascript" src="<%= request.getContextPath() %>/css/script.js"></script>
 
     </body>

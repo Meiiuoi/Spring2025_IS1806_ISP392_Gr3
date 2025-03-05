@@ -280,29 +280,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function sortTable(n) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("myTable");
-    switching = true;
-    dir = "asc"; // Mặc định sắp xếp tăng dần
+    var table = document.getElementById("myTable");
+    var switching = true, switchcount = 0;
+    var rows, i, x, y, shouldSwitch, dir = "asc";
 
-    // Lặp đến khi không còn phần tử cần hoán đổi
     while (switching) {
         switching = false;
         rows = table.rows;
-
-        // Lặp qua tất cả các hàng trừ hàng tiêu đề
-        for (i = 0; i < rows.length - 1; i++) {
+        
+        // Duyệt qua tất cả các hàng (bỏ qua hàng tiêu đề)
+        for (i = 1; i < rows.length - 1; i++) { 
             shouldSwitch = false;
-
-            // Lấy dữ liệu của hai ô cần so sánh, bỏ qua cột đầu tiên (checkbox)
-            x = rows[i].getElementsByTagName("TD")[columnIndex];
-            y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
 
             if (x && y) {
-                if (dir === "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                } else if (dir === "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                let xValue = x.innerText.trim();
+                let yValue = y.innerText.trim();
+
+                // Kiểm tra xem có phải số không, nếu có thì chuyển sang Number
+                if (!isNaN(parseFloat(xValue)) && !isNaN(parseFloat(yValue))) {
+                    xValue = parseFloat(xValue);
+                    yValue = parseFloat(yValue);
+                } else {
+                    xValue = xValue.toLowerCase();
+                    yValue = yValue.toLowerCase();
+                }
+
+                if ((dir === "asc" && xValue > yValue) || (dir === "desc" && xValue < yValue)) {
                     shouldSwitch = true;
                     break;
                 }
@@ -310,7 +315,6 @@ function sortTable(n) {
         }
 
         if (shouldSwitch) {
-            // Đổi chỗ hai hàng
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             switchcount++;
@@ -322,6 +326,7 @@ function sortTable(n) {
         }
     }
 }
+
 
 
 

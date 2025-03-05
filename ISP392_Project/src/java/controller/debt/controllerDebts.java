@@ -272,33 +272,7 @@ public class controllerDebts extends HttpServlet {
                 System.out.println("Debt ID: " + debt.getDebt_note_id() + ", Amount: " + debt.getAmount());
             }
 
-            if (!existingDebts.isEmpty()) { // Kiểm tra danh sách không rỗng
-                DebtNote debtToUpdate = existingDebts.get(0);  // Lấy phần tử đầu tiên trong danh sách
-                int existingId = debtToUpdate.getDebt_note_id();
-                debtToUpdate.setId(existingId);
-                debtToUpdate.setType(type);
-                debtToUpdate.setAmount(amount);
-                debtToUpdate.setImage(imageFileName);
-                debtToUpdate.setDescription(description);
-                debtToUpdate.setCustomer_id(customer_id);
-                debtToUpdate.setCreatedBy(createdBy);
-                debtToUpdate.setCreatedAt(createdAt);
-                debtToUpdate.setStatus(status);
 
-                // Gọi phương thức cập nhật
-                boolean isUpdated = debts.updateDebtInCustomer(debtToUpdate);
-                if (isUpdated) {
-                    request.getSession().setAttribute("Notification", "Debt added successfully.");
-                    totalDebtAmount = totalDebtAmount.add(amount);
-                    customerDAO.editCustomerBalance(totalDebtAmount, customer_id);
-                } else {
-                    request.getSession().setAttribute("Notification", "Debt added failed.");
-
-                }
-                // Cộng lại khoản nợ mới vào tổng nợ
-
-            } else {
-                // Nếu không có nợ cũ, thêm mới
                 DebtNote newDebt = new DebtNote(0, type, amount, imageFileName, description, customer_id, createdAt, updatedAt, createdBy, status);
                 boolean insert = debts.insertDebtInCustomer(newDebt);
                 if (insert) {
@@ -310,7 +284,7 @@ public class controllerDebts extends HttpServlet {
                 }
                 // Cộng khoản nợ mới vào tổng nợ
 
-            }
+       
 // Chỉ chuyển hướng sau khi hoàn tất cập nhật
             request.getSession().setAttribute("Notification", request.getAttribute("Notification"));
             response.sendRedirect("Customers?service=customers");

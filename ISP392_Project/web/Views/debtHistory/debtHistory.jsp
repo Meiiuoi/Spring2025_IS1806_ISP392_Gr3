@@ -117,9 +117,9 @@
                                 <input type="hidden" name="customer_id" value="${debt.customer_id}" />
                                 <input type="hidden" name="id" value="${debt.debt_note_id}" />
                             </c:forEach>
-                                <input type="hidden" name="name" value="${name}" />
-                                <input type="hidden" name="phone" value="${phone}" />
-                                <input type="hidden" name="address" value="${address}" />
+                            <input type="hidden" name="name" value="${name}" />
+                            <input type="hidden" name="phone" value="${phone}" />
+                            <input type="hidden" name="address" value="${address}" />
                             <div class="modal-header">
                                 <h5 class="modal-title" id="DebtModalLabel">Add Debt</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -129,9 +129,11 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Debt Type</label>
-                                    <select class="form-control" name="type" id="debtType" required>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
+                                    <select class="form-control" name="status">
+                                        <option value="Customer takes a loan">Customer takes a loan</option> 
+                                        <option value="Customer pays">Customer pays</option>
+                                        <option value="Owe">Owe</option> 
+                                        <option value="Pay for the customer">Pay for the customer</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -149,14 +151,6 @@
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea class="form-control" name="description" rows="3"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" name="status" required>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Paid">Paid</option>
-                                        <option value="Overdue">Overdue</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="modal-footer">
