@@ -150,7 +150,7 @@
                                     <td>${customer.createdAt}</td>
                                     <td>${customer.createdBy}</td>
                                     <td class="sticky-col">
-                                        <button type="button" class="btn btn-outline-primary mr-lg-auto" data-toggle="modal" data-target="#">
+                                        <button type="button" class="btn btn-outline-primary mr-lg-auto" data-toggle="modal" data-target="#invoiceListModal${customer.id}">
                                             View
                                         </button>
                                         <button type="button" class="btn btn-outline-danger mr-lg-auto" data-toggle="modal" data-target="#debtListModal${customer.id}">
