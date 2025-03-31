@@ -107,14 +107,14 @@ public class EditProfileServlet extends HttpServlet {
 
         if (emailExists) {
             request.setAttribute("emailError", "Email already exists.");
-            request.setAttribute("user", existingUser);
+            request.setAttribute("user", existingUser);  // Truyền lại thông tin người dùng
             request.getRequestDispatcher("/views/profile/editProfile.jsp").forward(request, response);
             return;
         }
 
         if (phoneExists) {
             request.setAttribute("phoneError", "Phone number already exists.");
-            existingUser.setPhone(phone);
+            existingUser.setPhone(phone); // Đảm bảo số điện thoại mới được truyền vào
             request.setAttribute("user", existingUser);
             request.getRequestDispatcher("/views/profile/editProfile.jsp").forward(request, response);
             return;
@@ -122,7 +122,7 @@ public class EditProfileServlet extends HttpServlet {
 
         if (!EMAIL_PATTERN.matcher(email).matches()) {
             request.setAttribute("emailError", "Invalid email format.");
-            existingUser.setEmail(email);
+            existingUser.setEmail(email); // Đảm bảo email mới được truyền vào
             request.setAttribute("user", existingUser);
             request.getRequestDispatcher("/views/profile/editProfile.jsp").forward(request, response);
             return;
@@ -130,29 +130,26 @@ public class EditProfileServlet extends HttpServlet {
 
         if (!phone.matches("^0\\d{9}$")) {
             request.setAttribute("phoneError", "Invalid phone format.");
-            existingUser.setPhone(phone);
+            existingUser.setPhone(phone); // Đảm bảo số điện thoại mới được truyền vào
             request.setAttribute("user", existingUser);
             request.getRequestDispatcher("/views/profile/editProfile.jsp").forward(request, response);
             return;
         }
 
-        Part filePart = request.getPart("image"); // Image part
-        String avatarFileName = existingUser.getImage();  // Default to old image if no new image
+        Part filePart = request.getPart("avatar");
+        String avatarFileName = existingUser.getImage();
 
         if (filePart != null && filePart.getSize() > 0) {
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-
             if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("gif")) {
-                avatarFileName = userId + "." + extension;  // Ensure unique filename
+                avatarFileName = userId + "." + extension;
                 String uploadPath = getServletContext().getRealPath("/") + File.separator + AVATAR_DIR;
                 File uploadDir = new File(uploadPath);
-
                 if (!uploadDir.exists()) {
-                    uploadDir.mkdir();  // Create directory if it doesn't exist
+                    uploadDir.mkdir();
                 }
-
-                filePart.write(uploadPath + File.separator + avatarFileName);  // Save the image
+                filePart.write(uploadPath + File.separator + avatarFileName);
             }
         }
 
@@ -165,14 +162,14 @@ public class EditProfileServlet extends HttpServlet {
                 .gender(gender)
                 .dob(sqlDob)
                 .status(status)
-                .image(avatarFileName) // Update image path
+                .image(avatarFileName)
                 .build();
 
-        session.setAttribute("user", updatedUser);
         boolean updateSuccess = profileDAO.updateUser(updatedUser);
         if (updateSuccess) {
             session.setAttribute("successMessage", "Profile updated successfully!");
-            session.setAttribute("user", updatedUser);  // Update session
+            // Update the user object in the session to reflect the changes
+            session.setAttribute("user", updatedUser);
             response.sendRedirect(request.getContextPath() + "/user");
         } else {
             request.setAttribute("errorMessage", "Failed to update profile!");
