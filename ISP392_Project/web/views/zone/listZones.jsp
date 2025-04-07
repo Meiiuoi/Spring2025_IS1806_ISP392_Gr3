@@ -95,9 +95,9 @@
                             <th>Product</th>
                             <th>Created By</th>
                             <th>Status</th>
-                            <c:if test="${sessionScope.role == 'owner'}">
-                            <th>Actions</th>
-                            </c:if>
+                                <c:if test="${sessionScope.role == 'owner'}">
+                                <th>Actions</th>
+                                </c:if>
                         </tr>
                     </thead>
                     <tbody id="zoneTableBody">
@@ -135,8 +135,9 @@
                     <c:if test="${index > 3}">
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                         </c:if>
-                        <c:forEach begin="${index - 1}" end="${index + 1}" var="page">
-                            <c:if test="${page > 1 && page < endPage}">
+                        <c:forEach var="i" begin="${index - 2 >= 1 ? index - 2 : 1}" end="${index + 2 > endPage ? endPage : index + 2}" varStatus="loop">
+
+                        <c:if test="${page > 1 && page < endPage}">
                             <li class="page-item ${index == page ? 'active' : ''}">
                                 <a class="page-link" href="zones?service=zones&searchZone=${searchZone}&index=${page}&sortBy=${sortBy}&sortOrder=${sortOrder}&pageSize=${pageSize}&showInactive=${requestScope.showInactive}">
                                     ${page}
@@ -230,7 +231,7 @@
                                 '<td>' + (zone.productName ? zone.productName : 'N/A') + '</td>' +
                                 '<td>' + (zone.createdBy || '') + '</td>' +
                                 '<td>' + (zone.status || '') + '</td>';
-                        
+
                         if (role === 'owner') {
                             row += '<td>' +
                                     '<a href="<%= request.getContextPath() %>/zones?service=editZone&zone_id=' + (zone.id || '') + '&index=' + currentIndex + '&sortBy=' + currentSortBy + '&sortOrder=' + currentSortOrder + '" class="btn btn-outline-primary">Edit</a> ' +

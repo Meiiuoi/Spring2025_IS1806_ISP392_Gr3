@@ -114,15 +114,6 @@
                 <span>Invoice 1</span>
                 <span class="tab-close">×</span>
             </div>
-
-            <div class="header-icons">
-                <a href="#" class="header-icon"><i class="bi bi-cart"></i></a>
-                <a href="#" class="header-icon"><i class="bi bi-arrow-left"></i></a>
-                <a href="#" class="header-icon"><i class="bi bi-arrow-clockwise"></i></a>
-                <a href="#" class="header-icon"><i class="bi bi-printer"></i></a>
-                <span class="header-icon">0912345678</span>
-                <a href="#" class="header-icon"><i class="bi bi-list"></i></a>
-            </div>
         </div>
 
         <div class="container">
