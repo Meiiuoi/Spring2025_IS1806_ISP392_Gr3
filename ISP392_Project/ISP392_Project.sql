@@ -276,3 +276,8 @@ INSERT INTO ProductUnits (product_id, unitSize) VALUES
 (14, '1'), (14, '10'), (14, '20'),
 (15, '1'), (15, '10'), (15, '20'),
 (16, '1'), (16, '10'), (16, '20');
+
+ALTER TABLE ProductPriceHistory 
+DROP FOREIGN KEY productpricehistory_ibfk_3,
+ADD COLUMN supplier_id INT,
+ADD FOREIGN KEY (supplier_id) REFERENCES Customers(id) ON DELETE SET NULL;
